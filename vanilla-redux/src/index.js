@@ -21,7 +21,7 @@ const reducer = (state = [], action) => {
     case ADD_TODO:
       return [{text: action.text, id: Date.now()}, ...state];
     case DELETE_TODO:
-      return [];
+      return state.filter(toDo => toDo.id !== action.id);
     default:
       return state;
   }
@@ -35,7 +35,7 @@ const dispatchAddToDo = (text) => {
 
 const dispatchDeleteTodo = (e) => {
   // 버튼이 li내부에 있으니 parentNode 사용
-  const id = e.target.parentNode.id;
+  const id = Number(e.target.parentNode.id);
   store.dispatch(deleteTodo(id));
 };
 
